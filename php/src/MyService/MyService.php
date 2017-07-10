@@ -27,6 +27,12 @@ class MyService
      */
     public function handleRequest(Request $request)
     {
-        return new Response("hello " . $request->getName() . "!");
+        if ($this->registry->isValid($request->getToken())) {
+            $message = "hello " . $request->getName() . "!";
+        } else {
+            $message = "Invalid Token";
+        }
+        return new Response($message);
     }
 }
+
